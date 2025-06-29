@@ -2,3 +2,5 @@
 {"level":30,"time":1751227008771,"pid":57472,"hostname":"Mac","msg":"Found 5 functions"}
 {"level":30,"time":1751227008771,"pid":57472,"hostname":"Mac","msg":"🎯 Enhanced CLI initialized with dynamic contract analysis"}
 {"level":30,"time":1751227008772,"pid":57472,"hostname":"Mac","msg":"No WALLET_SEED found in environment variables. Please enter manually or add to .env file."}
+{"level":30,"time":1751227036394,"pid":57472,"hostname":"Mac","msg":"File path for save file not found, building wallet from scratch"}
+{"level":50,"time":1751227036416,"pid":57472,"hostname":"Mac","msg":"CLI error: Expected 32-byte seed"}

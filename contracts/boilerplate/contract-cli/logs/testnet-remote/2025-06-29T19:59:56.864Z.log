@@ -1,0 +1,14 @@
+{"level":30,"time":1751227196868,"pid":62635,"hostname":"Mac","msg":"Analyzed contract: Zkbadge Contract"}
+{"level":30,"time":1751227196870,"pid":62635,"hostname":"Mac","msg":"Found 5 functions"}
+{"level":30,"time":1751227196870,"pid":62635,"hostname":"Mac","msg":"🎯 Enhanced CLI initialized with dynamic contract analysis"}
+{"level":30,"time":1751227196871,"pid":62635,"hostname":"Mac","msg":"✅ Using wallet seed from environment variable"}
+{"level":30,"time":1751227196871,"pid":62635,"hostname":"Mac","msg":"File path for save file not found, building wallet from scratch"}
+{"level":30,"time":1751227196923,"pid":62635,"hostname":"Mac","msg":"Your wallet seed is: 1000000000000000000000000000000000000000000000000000000000000001"}
+{"level":30,"time":1751227196923,"pid":62635,"hostname":"Mac","msg":"Your wallet address is: mn_shield-addr_test1y76zsmuzd5vrd6lvcxv2uypl4zc56ly9uzuvyt28kjtc9n6jk68sxq95w6zyym5ql9je6a37ydzsq82w8ufjk463kzg2e7fw5x80zwur6q0ddfus"}
+{"level":30,"time":1751227196923,"pid":62635,"hostname":"Mac","msg":"Your wallet balance is: 0"}
+{"level":30,"time":1751227196923,"pid":62635,"hostname":"Mac","msg":"Waiting to receive tokens..."}
+{"level":30,"time":1751227196925,"pid":62635,"hostname":"Mac","msg":"Waiting for funds. Backend lag: 0, wallet lag: 0, transactions=0"}
+{"level":30,"time":1751227207128,"pid":62635,"hostname":"Mac","msg":"Waiting for funds. Backend lag: 0, wallet lag: 0, transactions=1"}
+{"level":30,"time":1751227207129,"pid":62635,"hostname":"Mac","msg":"Your wallet balance is: 10000000"}
+{"level":30,"time":1751227207137,"pid":62635,"hostname":"Mac","msg":"🚀 Auto-deploying new contract..."}
+{"level":30,"time":1751227207138,"pid":62635,"hostname":"Mac","msg":"Deploying zkbadge contract..."}

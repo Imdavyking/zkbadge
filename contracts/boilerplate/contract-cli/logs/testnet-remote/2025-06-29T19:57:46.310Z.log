@@ -1,0 +1,18 @@
+{"level":30,"time":1751227066314,"pid":59157,"hostname":"Mac","msg":"Analyzed contract: Zkbadge Contract"}
+{"level":30,"time":1751227066315,"pid":59157,"hostname":"Mac","msg":"Found 5 functions"}
+{"level":30,"time":1751227066316,"pid":59157,"hostname":"Mac","msg":"🎯 Enhanced CLI initialized with dynamic contract analysis"}
+{"level":30,"time":1751227066316,"pid":59157,"hostname":"Mac","msg":"No WALLET_SEED found in environment variables. Please enter manually or add to .env file."}
+{"level":30,"time":1751227067514,"pid":59157,"hostname":"Mac","msg":"File path for save file not found, building wallet from scratch"}
+{"level":30,"time":1751227067598,"pid":59157,"hostname":"Mac","msg":"Your wallet seed is: 1000000000000000000000000000000000000000000000000000000000000001"}
+{"level":30,"time":1751227067598,"pid":59157,"hostname":"Mac","msg":"Your wallet address is: mn_shield-addr_test1y76zsmuzd5vrd6lvcxv2uypl4zc56ly9uzuvyt28kjtc9n6jk68sxq95w6zyym5ql9je6a37ydzsq82w8ufjk463kzg2e7fw5x80zwur6q0ddfus"}
+{"level":30,"time":1751227067599,"pid":59157,"hostname":"Mac","msg":"Your wallet balance is: 0"}
+{"level":30,"time":1751227067599,"pid":59157,"hostname":"Mac","msg":"Waiting to receive tokens..."}
+{"level":30,"time":1751227067601,"pid":59157,"hostname":"Mac","msg":"Waiting for funds. Backend lag: 0, wallet lag: 0, transactions=0"}
+{"level":30,"time":1751227077892,"pid":59157,"hostname":"Mac","msg":"Waiting for funds. Backend lag: 0, wallet lag: 0, transactions=0"}
+{"level":30,"time":1751227089708,"pid":59157,"hostname":"Mac","msg":"Waiting for funds. Backend lag: 0, wallet lag: 0, transactions=0"}
+{"level":30,"time":1751227101701,"pid":59157,"hostname":"Mac","msg":"Waiting for funds. Backend lag: 0, wallet lag: 0, transactions=0"}
+{"level":30,"time":1751227113733,"pid":59157,"hostname":"Mac","msg":"Waiting for funds. Backend lag: 0, wallet lag: 0, transactions=0"}
+{"level":30,"time":1751227125724,"pid":59157,"hostname":"Mac","msg":"Waiting for funds. Backend lag: 0, wallet lag: 0, transactions=0"}
+{"level":30,"time":1751227137802,"pid":59157,"hostname":"Mac","msg":"Waiting for funds. Backend lag: 0, wallet lag: 0, transactions=0"}
+{"level":30,"time":1751227150106,"pid":59157,"hostname":"Mac","msg":"Waiting for funds. Backend lag: 0, wallet lag: 0, transactions=0"}
+{"level":30,"time":1751227161862,"pid":59157,"hostname":"Mac","msg":"Waiting for funds. Backend lag: 0, wallet lag: 0, transactions=0"}
