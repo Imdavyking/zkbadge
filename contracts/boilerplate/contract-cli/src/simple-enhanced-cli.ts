@@ -54,25 +54,25 @@ export class SimpleEnhancedCLI {
     }
 
     this.logger.info(`=== ${this.contractInfo.contractName} CLI ===`);
-    this.logger.info(`📊 Available functions: ${this.contractInfo.functions.map(f => f.name).join(', ')}`);
-    
+    this.logger.info(`📊 Available functions: ${this.contractInfo.functions.map((f) => f.name).join(', ')}`);
+
     const menuItems = this.cliGenerator.generateMenuItems();
-    
+
     while (true) {
       const question = this.cliGenerator.generateMenuQuestion(menuItems);
       const choice = await rli.question(question);
-      
+
       try {
         const choiceNum = parseInt(choice, 10) - 1;
-        
+
         if (choiceNum >= 0 && choiceNum < menuItems.length) {
           const selectedItem = menuItems[choiceNum];
-          
+
           if (selectedItem.id === 'exit') {
             this.logger.info('👋 Goodbye!');
             break;
           }
-          
+
           if (this.contract) {
             await selectedItem.action(providers, this.contract, rli);
           } else {
@@ -99,11 +99,11 @@ export class SimpleEnhancedCLI {
     if (!this.contractInfo) {
       throw new Error('Contract info not available');
     }
-    
+
     // Check if auto-deploy is enabled (set by deployment script)
     if (process.env.AUTO_DEPLOY === 'true') {
       const deployMode = process.env.DEPLOY_MODE || 'new';
-      
+
       if (deployMode === 'join') {
         this.logger.info('🔗 Auto-joining existing contract...');
         const contractAddress = await rli.question('What is the contract address (in hex)? ');
@@ -112,12 +112,24 @@ export class SimpleEnhancedCLI {
         return this.contract;
       } else {
         this.logger.info('🚀 Auto-deploying new contract...');
-        this.contract = await api.deploy(providers, { secretKey: new Uint8Array(32).fill(1) });
+        this.contract = await api.deploy(providers, {
+          certificate: {
+            issued_at: BigInt(Date.now()),
+            is_valid: true,
+            valid_until: BigInt(Date.now() + 1000 * 60 * 60 * 24 * 365), // 1 year
+            issuer: {
+              bytes: new Uint8Array(32).fill(1),
+            },
+            owner: {
+              bytes: new Uint8Array(32).fill(2),
+            },
+          },
+        });
         this.logger.info(`🎉 Successfully deployed ${this.contractInfo.contractName}!`);
         return this.contract;
       }
     }
-    
+
     const question = `
 You can do one of the following:
   1. Deploy a new ${this.contractInfo.contractName}
@@ -129,7 +141,19 @@ Which would you like to do? `;
       const choice = await rli.question(question);
       switch (choice) {
         case '1':
-          this.contract = await api.deploy(providers, { secretKey: new Uint8Array(32).fill(1) });
+          this.contract = await api.deploy(providers, {
+            certificate: {
+              issued_at: BigInt(Date.now()),
+              is_valid: true,
+              valid_until: BigInt(Date.now() + 1000 * 60 * 60 * 24 * 365), // 1 year
+              issuer: {
+                bytes: new Uint8Array(32).fill(1),
+              },
+              owner: {
+                bytes: new Uint8Array(32).fill(2),
+              },
+            },
+          });
           this.logger.info(`🎉 Successfully deployed ${this.contractInfo.contractName}!`);
           return this.contract;
         case '2':
@@ -149,26 +173,26 @@ Which would you like to do? `;
   async run(config: Config, logger: Logger, dockerEnv?: boolean): Promise<void> {
     // Set the global logger for API functions
     api.setLogger(logger);
-    
+
     await this.initialize();
-    
+
     const rli = createInterface({ input, output, terminal: true });
-    
+
     try {
       // Check for seed phrase in environment variable first
       let seedPhrase = process.env.WALLET_SEED;
-      
+
       if (!seedPhrase) {
         logger.info('No WALLET_SEED found in environment variables. Please enter manually or add to .env file.');
         seedPhrase = await rli.question('Enter your wallet seed: ');
       } else {
         logger.info('✅ Using wallet seed from environment variable');
       }
-      
+
       const wallet = await api.buildWalletAndWaitForFunds(config, seedPhrase, '');
       if (wallet !== null) {
         const providers = await api.configureProviders(wallet, config);
-        
+
         const contract = await this.deployOrJoin(providers, rli);
         if (contract !== null) {
           this.contract = contract;

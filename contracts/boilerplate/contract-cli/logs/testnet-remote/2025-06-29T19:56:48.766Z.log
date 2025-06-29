@@ -1,0 +1,4 @@
+{"level":30,"time":1751227008770,"pid":57472,"hostname":"Mac","msg":"Analyzed contract: Zkbadge Contract"}
+{"level":30,"time":1751227008771,"pid":57472,"hostname":"Mac","msg":"Found 5 functions"}
+{"level":30,"time":1751227008771,"pid":57472,"hostname":"Mac","msg":"🎯 Enhanced CLI initialized with dynamic contract analysis"}
+{"level":30,"time":1751227008772,"pid":57472,"hostname":"Mac","msg":"No WALLET_SEED found in environment variables. Please enter manually or add to .env file."}

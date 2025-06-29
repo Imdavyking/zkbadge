@@ -18,6 +18,12 @@ import { type CounterProviders, type DeployedCounterContract } from './common-ty
 import { type Config, StandaloneConfig } from './config';
 import { DynamicCLIGenerator } from './dynamic-cli-generator.js';
 import * as api from './api';
+import type {
+  Certificate,
+  Contract as ContractType,
+  Witnesses,
+  ZswapCoinPublicKey,
+} from '../../../boilerplate/contract/src/managed/zkbadge/contract/index.cjs';
 
 let logger: Logger;
 
@@ -43,22 +49,47 @@ const deployOrJoin = async (providers: CounterProviders, rli: Interface): Promis
   // Check if auto-deploy is enabled (set by deployment script)
   if (process.env.AUTO_DEPLOY === 'true') {
     const deployMode = process.env.DEPLOY_MODE || 'new';
-    
+
     if (deployMode === 'join') {
       logger.info('🔗 Auto-joining existing contract...');
       const contractAddress = await rli.question('What is the contract address (in hex)? ');
       return await api.joinContract(providers, contractAddress);
     } else {
       logger.info('🚀 Auto-deploying new contract...');
-      return await api.deploy(providers, { secretKey: new Uint8Array(32).fill(1) });
+
+      return await api.deploy(providers, {
+        certificate: {
+          issued_at: BigInt(Date.now()),
+          is_valid: true,
+          valid_until: BigInt(Date.now() + 1000 * 60 * 60 * 24 * 365), // 1 year
+          issuer: {
+            bytes: new Uint8Array(32).fill(1),
+          },
+          owner: {
+            bytes: new Uint8Array(32).fill(2),
+          },
+        },
+      });
     }
   }
-  
+
   while (true) {
     const choice = await rli.question(DEPLOY_OR_JOIN_QUESTION);
     switch (choice) {
       case '1':
-        return await api.deploy(providers, { secretKey: new Uint8Array(32).fill(1) });
+        return await api.deploy(providers, {
+          certificate: {
+            issued_at: BigInt(Date.now()),
+            is_valid: true,
+            valid_until: BigInt(Date.now() + 1000 * 60 * 60 * 24 * 365), // 1 year
+            issuer: {
+              bytes: new Uint8Array(32).fill(1),
+            },
+            owner: {
+              bytes: new Uint8Array(32).fill(2),
+            },
+          },
+        });
       case '2':
         return await join(providers, rli);
       case '3':
@@ -75,24 +106,24 @@ const mainLoop = async (providers: CounterProviders, rli: Interface): Promise<vo
   if (counterContract === null) {
     return;
   }
-  
+
   // Initialize dynamic CLI generator
   const cliGenerator = new DynamicCLIGenerator(logger);
   await cliGenerator.initialize();
-  
+
   const menuItems = cliGenerator.generateMenuItems();
   const menuQuestion = cliGenerator.generateMenuQuestion(menuItems);
-  
+
   logger.info('=== Dynamic Contract CLI ===');
   logger.info(`Contract Address: ${counterContract.deployTxData.public.contractAddress}`);
   logger.info('Available functions have been automatically detected from your contract!');
-  
+
   // Check if this is a quick deployment test
   if (process.env.AUTO_DEPLOY === 'true' && process.env.QUICK_TEST === 'true') {
     logger.info('🧪 Running quick deployment test...');
-    
+
     // Find the first non-exit action and run it
-    const testAction = menuItems.find(item => item.id !== 'exit');
+    const testAction = menuItems.find((item) => item.id !== 'exit');
     if (testAction) {
       logger.info(`🎯 Testing function: ${testAction.label}`);
       try {
@@ -107,28 +138,28 @@ const mainLoop = async (providers: CounterProviders, rli: Interface): Promise<vo
         }
       }
     }
-    
+
     logger.info('💡 Use `npm run wallet` for full testnet CLI or restart for interactive mode');
     return;
   }
-  
+
   while (true) {
     const choice = await rli.question(menuQuestion);
     const choiceIndex = parseInt(choice, 10) - 1;
-    
+
     if (choiceIndex < 0 || choiceIndex >= menuItems.length) {
       logger.error(`Invalid choice: ${choice}`);
       continue;
     }
-    
+
     const selectedItem = menuItems[choiceIndex];
-    
+
     // Special handling for exit
     if (selectedItem.id === 'exit') {
       logger.info('Exiting...');
       return;
     }
-    
+
     try {
       await selectedItem.action(providers, counterContract, rli);
     } catch (error: unknown) {
@@ -145,14 +176,14 @@ const mainLoop = async (providers: CounterProviders, rli: Interface): Promise<vo
 const buildWalletFromSeed = async (config: Config, rli: Interface): Promise<Wallet & Resource> => {
   // Check for seed phrase in environment variable first
   let seedPhrase = process.env.WALLET_SEED;
-  
+
   if (!seedPhrase) {
     logger.info('No WALLET_SEED found in environment variables. Please enter manually or add to .env file.');
     seedPhrase = await rli.question('Enter your wallet seed: ');
   } else {
     logger.info('✅ Using wallet seed from environment variable');
   }
-  
+
   return await api.buildWalletAndWaitForFunds(config, seedPhrase, '');
 };
 
