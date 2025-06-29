@@ -1,14 +1,118 @@
 {
   "circuits": [
     {
-      "name": "increment",
+      "name": "verify_certificates",
       "pure": false,
       "arguments": [
+        {
+          "name": "hashes",
+          "type": {
+            "type-name": "Vector",
+            "length": 10,
+            "type": {
+              "type-name": "Struct",
+              "name": "Maybe",
+              "elements": [
+                {
+                  "name": "is_some",
+                  "type": {
+                    "type-name": "Boolean"
+                  }
+                },
+                {
+                  "name": "value",
+                  "type": {
+                    "type-name": "Bytes",
+                    "length": 32
+                  }
+                }
+              ]
+            }
+          }
+        }
       ],
       "result-type": {
         "type-name": "Tuple",
         "types": [
         ]
+      }
+    },
+    {
+      "name": "cert_hash",
+      "pure": true,
+      "arguments": [
+        {
+          "name": "cert",
+          "type": {
+            "type-name": "Struct",
+            "name": "Certificate",
+            "elements": [
+              {
+                "name": "subject",
+                "type": {
+                  "type-name": "Opaque",
+                  "tsType": "string"
+                }
+              },
+              {
+                "name": "issuer",
+                "type": {
+                  "type-name": "Struct",
+                  "name": "ZswapCoinPublicKey",
+                  "elements": [
+                    {
+                      "name": "bytes",
+                      "type": {
+                        "type-name": "Bytes",
+                        "length": 32
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "name": "issued_at",
+                "type": {
+                  "type-name": "Uint",
+                  "maxval": 18446744073709551615
+                }
+              },
+              {
+                "name": "valid_until",
+                "type": {
+                  "type-name": "Uint",
+                  "maxval": 18446744073709551615
+                }
+              },
+              {
+                "name": "is_valid",
+                "type": {
+                  "type-name": "Boolean"
+                }
+              },
+              {
+                "name": "owner",
+                "type": {
+                  "type-name": "Struct",
+                  "name": "ZswapCoinPublicKey",
+                  "elements": [
+                    {
+                      "name": "bytes",
+                      "type": {
+                        "type-name": "Bytes",
+                        "length": 32
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        }
+      ],
+      "result-type": {
+        "type-name": "Bytes",
+        "length": 32
       }
     }
   ]

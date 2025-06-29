@@ -32,27 +32,28 @@ constructor() {
         
 // Admin verifies valid certificate hashes off-chain
 export circuit verify_certificates(hashes: Vector<10, Maybe<Bytes<32>>>): [] {
-  assert admin == ownPublicKey() "Not admin"; 
-  // for (const maybe_hash of hashes) {
-  //   if (maybe_hash.is_some) {
-  //     registered_hashes.insert(maybe_hash.value, STATUS.Verified);
-  //   }
-  // }
+  assert (admin == ownPublicKey(), "Not admin"); 
+  for (const maybe_hash of hashes) {
+    if (disclose(maybe_hash.is_some)) {
+      const hash_value = disclose(maybe_hash.value);
+      registered_hashes.insert(hash_value, STATUS.Verified);
+    }
+  }
 }
 
 // User registers their certificate privately
 // export circuit register(): [] {
 //   const cert = disclose(user_certificate());
 
-//   assert (cert.is_valid == true) "Certificate not valid";
-//   assert (cert.valid_until > now()) "Certificate expired";
-//   assert (cert.owner == own_public_key()) "Not your certificate";
+//   assert (cert.is_valid == true, "Certificate not valid");
+//   // assert (cert.valid_until > now(), "Certificate expired");
+//   assert (cert.owner == ownPublicKey(), "Not your certificate");
 
 //   const hash = cert_hash(cert);
 //   registered_hashes.insert(hash, STATUS.Pending);
 // }
 
-// // Anyone can check if a user's cert is verified
+// Anyone can check if a user's cert is verified
 // export circuit check_verification(): Boolean {
 //   const cert = disclose(user_certificate());
 //   const hash = cert_hash(cert);
@@ -63,11 +64,11 @@ export circuit verify_certificates(hashes: Vector<10, Maybe<Bytes<32>>>): [] {
 // export circuit access_private_feature(): [] {
 //   const cert = disclose(user_certificate());
 //   const hash = cert_hash(cert);
-//   assert registered_hashes.lookup(hash) == STATUS.Verified "Access denied";
+//   assert (registered_hashes.lookup(hash) == STATUS.Verified, "Access denied");
 //   verified_users.insert(cert.owner, true);
 // }
 
-// // Hashing function
-// export circuit cert_hash(cert: Certificate): Bytes<32> {
-//   return persistent_hash<Certificate>(cert);
-// }
+// Hashing function
+export circuit cert_hash(cert: Certificate): Bytes<32> {
+  return persistentHash<Certificate>(cert);
+}

@@ -2,7 +2,7 @@
   "version": 3,
   "file": "index.cjs",
   "sourceRoot": "../../../",
-  "sources": ["zkbadge.compact"],
+  "sources": ["zkbadge.compact", "compiler/standard-library.compact"],
   "names": [],
-  "mappings": ";;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;EA2EA;;;;;;;;MAQA,AAAA,SAEC;;;;;;;;;;;;;;;;;;;;OAAA;;;GACA;EAXD;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;IAKA;;;;;;;;;uDAA6B;;;;;;;GAM5B;EAHD,AAAA,aAEC;UADC,KAAK;IAAL;;;;;;;;;;2EAAA,KAAK;;;;sDAAA;;GACN;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;IALD;qCAAA;;;;;;;;;;;wFAA6B;KAAA;;;;;;;;;;;;;;"
+  "mappings": ";;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;EA2BA;;;;;;;;MAMA,AAAA,mBAQC;;;;cARkC,QAAoC;;;;;;;;;;;;;;;;yCAApC,QAAoC;;;;;;;;;sDAApC,QAAoC;;;OAQtE;MA8BD,AAAA,SAEC;;;;cAFwB,MAAiB;;;;;;;;;;;;;;;;yCAAjB,MAAiB;;;;;;;uEAAjB,MAAiB;;;OAEzC;;;;;GA5CA;EAFD;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;IALA;;;;;;;;;uDAA+C;IAC/C;;;;;;;;;;uDAAwD;IAExD;;;;;;;;;;uDAA+D;UAG3D,KAAK;IAAL;;;;;;;yGAAA,KAAK;;uDAAA;;;;;;;GACR;ECcD,AAAA,8CAAiC;oEAAA;;;EA6EjC,AAAA;;;;;;;;EDvFA,AAAA,uBAQC,4BARkC,QAAoC;mEAC7D;;;;;;;;;;;sHAAK;;;;;;iDACb,GAKC,EALD,YAKC;;2BAJc,YAAU;+BACrB,YAA8C,GAAlB,YAAU;yBACtC;;;;;;;;;;8HAAyB,YAAU;;;;;;2EAAlB;;8BAHrB,GAKC;;;oBALwB,QAAM;;GAMhC;EA8BD,AAAA,aAEC,4BAFwB,MAAiB;8DACL,MAAI;GACxC;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;IAnDD;qCAAA;;;;;;;;;;;wFAA+C;KAAA;IAC/C;;;;uCAAA;;;;;;;;;;;;;;;;0FAAwD;;;;;uCAAxD;;;;;;;;;;;;0FAAwD;;;;;;;;;;;;uCAAxD;;;;;;;;;;;;;;;0FAAwD;;;;;;;;;;;;uCAAxD;;;;;;;;;;;;;;;;;0FAAwD;;;;;;;;KAAA;IAExD;;;;uCAAA;;;;;;;;;;;;;;;;0FAA+D;;;;;uCAA/D;;;;;;;;;;;;0FAA+D;;;;;;;;;;;;uCAA/D;;;;;;;;;;;;;;;0FAA+D;;;;;;;;;;;;uCAA/D;;;;;;;;;;;;;;;;;0FAA+D;;;;;;;;KAAA;;;;;;;;;;;;;;;;"
 }
