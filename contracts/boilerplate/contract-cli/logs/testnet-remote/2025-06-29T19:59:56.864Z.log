@@ -12,3 +12,12 @@
 {"level":30,"time":1751227207129,"pid":62635,"hostname":"Mac","msg":"Your wallet balance is: 10000000"}
 {"level":30,"time":1751227207137,"pid":62635,"hostname":"Mac","msg":"🚀 Auto-deploying new contract..."}
 {"level":30,"time":1751227207138,"pid":62635,"hostname":"Mac","msg":"Deploying zkbadge contract..."}
+{"level":30,"time":1751227231824,"pid":62635,"hostname":"Mac","msg":"Deployed contract at address: 0200cefca57d84d1353e892edf529a936b7d457e77668b7b806e3630ae70d7066230"}
+{"level":30,"time":1751227231825,"pid":62635,"hostname":"Mac","msg":"🎉 Successfully deployed Zkbadge Contract!"}
+{"level":30,"time":1751227231825,"pid":62635,"hostname":"Mac","msg":"=== Zkbadge Contract CLI ==="}
+{"level":30,"time":1751227231825,"pid":62635,"hostname":"Mac","msg":"📊 Available functions: verify_certificates, register, check_verification, access_private_feature, cert_hash"}
+{"level":30,"time":1751227262608,"pid":62635,"hostname":"Mac","msg":"🔧 Executing verify_certificates..."}
+{"level":50,"time":1751227266887,"pid":62635,"hostname":"Mac","msg":"❌ Operation failed: type error: verify_certificates argument 1 (argument 2 as invoked from Typescript) at zkbadge.compact line 33 char 1; expected value of type Vector<10, struct Maybe<is_some: Boolean, value: Bytes<32>>> but received '[]'"}
+{"level":30,"time":1751227273479,"pid":62635,"hostname":"Mac","msg":"🔧 Executing cert_hash..."}
+{"level":50,"time":1751227279941,"pid":62635,"hostname":"Mac","msg":"❌ Operation failed: Aborted with Ctrl+C"}
+{"level":50,"time":1751227279942,"pid":62635,"hostname":"Mac","msg":"CLI error: readline was closed"}
