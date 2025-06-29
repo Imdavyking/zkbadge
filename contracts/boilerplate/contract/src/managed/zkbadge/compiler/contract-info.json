@@ -38,6 +38,37 @@
       }
     },
     {
+      "name": "register",
+      "pure": false,
+      "arguments": [
+      ],
+      "result-type": {
+        "type-name": "Tuple",
+        "types": [
+        ]
+      }
+    },
+    {
+      "name": "check_verification",
+      "pure": false,
+      "arguments": [
+      ],
+      "result-type": {
+        "type-name": "Boolean"
+      }
+    },
+    {
+      "name": "access_private_feature",
+      "pure": false,
+      "arguments": [
+      ],
+      "result-type": {
+        "type-name": "Tuple",
+        "types": [
+        ]
+      }
+    },
+    {
       "name": "cert_hash",
       "pure": true,
       "arguments": [
@@ -47,13 +78,6 @@
             "type-name": "Struct",
             "name": "Certificate",
             "elements": [
-              {
-                "name": "subject",
-                "type": {
-                  "type-name": "Opaque",
-                  "tsType": "string"
-                }
-              },
               {
                 "name": "issuer",
                 "type": {

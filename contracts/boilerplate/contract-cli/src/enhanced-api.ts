@@ -1,6 +1,6 @@
-// Enhanced API wrapper for Counter Contract
-// Generated on: 2025-06-13T22:15:31.852Z
-// Auto-generated from counter.compact
+// Enhanced API wrapper for Zkbadge Contract
+// Generated on: 2025-06-29T16:29:21.088Z
+// Auto-generated from zkbadge.compact
 
 import { type Logger } from 'pino';
 import { ContractAnalyzer } from './contract-analyzer.js';
@@ -87,79 +87,78 @@ export class EnhancedContractAPI {
 
   // Dynamic function mapping based on contract analysis
   /**
-   * Execute increment function
+   * Execute verify_certificates function
    */
-  async increment(...args: any[]): Promise<any> {
-    return await (originalApi as any).increment(...args);
+  async verify_certificates(...args: any[]): Promise<any> {
+    return await (originalApi as any).verify_certificates(...args);
   }
   /**
-   * Execute vote_for function
+   * Execute register function
    */
-  async vote_for(...args: any[]): Promise<any> {
-    return await (originalApi as any).vote_for(...args);
+  async register(...args: any[]): Promise<any> {
+    return await (originalApi as any).register(...args);
   }
   /**
-   * Execute get_vote_count function
+   * Execute check_verification function
    */
-  async get_vote_count(...args: any[]): Promise<any> {
-    return await (originalApi as any).get_vote_count(...args);
+  async check_verification(...args: any[]): Promise<any> {
+    return await (originalApi as any).check_verification(...args);
   }
   /**
-   * Execute public_key_vote function
+   * Execute access_private_feature function
    */
-  async public_key_vote(...args: any[]): Promise<any> {
-    return await (originalApi as any).public_key_vote(...args);
+  async access_private_feature(...args: any[]): Promise<any> {
+    return await (originalApi as any).access_private_feature(...args);
+  }
+  /**
+   * Execute cert_hash function
+   */
+  async cert_hash(...args: any[]): Promise<any> {
+    return await (originalApi as any).cert_hash(...args);
   }
 }
 
 // Export contract metadata for reference
 export const CONTRACT_METADATA = {
-  name: 'Counter Contract',
-  fileName: 'counter.compact',
-  generatedAt: '2025-06-13T22:15:31.852Z',
+  name: 'Zkbadge Contract',
+  fileName: 'zkbadge.compact',
+  generatedAt: '2025-06-29T16:29:21.088Z',
   functions: [
   {
-    "name": "increment",
+    "name": "verify_certificates",
+    "parameters": [
+      {
+        "name": "hashes",
+        "type": "Vector<10"
+      }
+    ],
+    "returnType": "[]",
+    "readOnly": false
+  },
+  {
+    "name": "register",
     "parameters": [],
     "returnType": "[]",
     "readOnly": false
   },
   {
-    "name": "vote_for",
-    "parameters": [
-      {
-        "name": "secret_key",
-        "type": "Bytes<3>"
-      },
-      {
-        "name": "index",
-        "type": "Uint<8>"
-      }
-    ],
+    "name": "check_verification",
+    "parameters": [],
+    "returnType": "Boolean",
+    "readOnly": true
+  },
+  {
+    "name": "access_private_feature",
+    "parameters": [],
     "returnType": "[]",
     "readOnly": false
   },
   {
-    "name": "get_vote_count",
+    "name": "cert_hash",
     "parameters": [
       {
-        "name": "index",
-        "type": "Uint<8>"
-      }
-    ],
-    "returnType": "Uint<64>",
-    "readOnly": true
-  },
-  {
-    "name": "public_key_vote",
-    "parameters": [
-      {
-        "name": "sk",
-        "type": "Bytes<3>"
-      },
-      {
-        "name": "instance",
-        "type": "Bytes<3>"
+        "name": "cert",
+        "type": "Certificate"
       }
     ],
     "returnType": "Bytes<32>",
@@ -168,20 +167,12 @@ export const CONTRACT_METADATA = {
 ],
   ledgerState: [
   {
-    "name": "round",
-    "type": "Counter"
+    "name": "registered_hashes",
+    "type": "Map<Bytes<32>, STATUS>"
   },
   {
-    "name": "votesA",
-    "type": "Counter"
-  },
-  {
-    "name": "votesB",
-    "type": "Counter"
-  },
-  {
-    "name": "items",
-    "type": "Set<Bytes<32>>"
+    "name": "verified_users",
+    "type": "Map<ZswapCoinPublicKey, Boolean>"
   }
 ],
   witnesses: []

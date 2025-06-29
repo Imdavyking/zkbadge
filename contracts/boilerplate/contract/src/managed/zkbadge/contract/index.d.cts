@@ -4,8 +4,7 @@ export enum STATUS { Pending = 0, Verified = 1 }
 
 export enum STATE { vacant = 0, occupied = 1 }
 
-export type Certificate = { subject: string;
-                            issuer: ZswapCoinPublicKey;
+export type Certificate = { issuer: ZswapCoinPublicKey;
                             issued_at: bigint;
                             valid_until: bigint;
                             is_valid: boolean;
@@ -19,11 +18,15 @@ export type CoinInfo = { nonce: Uint8Array; color: Uint8Array; value: bigint };
 export type Maybe<a> = { is_some: boolean; value: a };
 
 export type Witnesses<T> = {
+  user_certificate(context: __compactRuntime.WitnessContext<Ledger, T>): [T, Certificate];
 }
 
 export type ImpureCircuits<T> = {
   verify_certificates(context: __compactRuntime.CircuitContext<T>,
                       hashes_0: Maybe<Uint8Array>[]): __compactRuntime.CircuitResults<T, []>;
+  register(context: __compactRuntime.CircuitContext<T>): __compactRuntime.CircuitResults<T, []>;
+  check_verification(context: __compactRuntime.CircuitContext<T>): __compactRuntime.CircuitResults<T, boolean>;
+  access_private_feature(context: __compactRuntime.CircuitContext<T>): __compactRuntime.CircuitResults<T, []>;
 }
 
 export type PureCircuits = {
@@ -33,6 +36,9 @@ export type PureCircuits = {
 export type Circuits<T> = {
   verify_certificates(context: __compactRuntime.CircuitContext<T>,
                       hashes_0: Maybe<Uint8Array>[]): __compactRuntime.CircuitResults<T, []>;
+  register(context: __compactRuntime.CircuitContext<T>): __compactRuntime.CircuitResults<T, []>;
+  check_verification(context: __compactRuntime.CircuitContext<T>): __compactRuntime.CircuitResults<T, boolean>;
+  access_private_feature(context: __compactRuntime.CircuitContext<T>): __compactRuntime.CircuitResults<T, []>;
   cert_hash(context: __compactRuntime.CircuitContext<T>, cert_0: Certificate): __compactRuntime.CircuitResults<T, Uint8Array>;
 }
 

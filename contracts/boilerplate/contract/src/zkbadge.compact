@@ -10,7 +10,6 @@ export { Certificate };
 export enum STATUS { Pending, Verified };
 
 struct Certificate {
-  subject: Opaque<"string">,
   issuer: ZswapCoinPublicKey,
   issued_at: Uint<64>,
   valid_until: Uint<64>,
@@ -42,31 +41,31 @@ export circuit verify_certificates(hashes: Vector<10, Maybe<Bytes<32>>>): [] {
 }
 
 // User registers their certificate privately
-// export circuit register(): [] {
-//   const cert = disclose(user_certificate());
+export circuit register(): [] {
+  const cert = disclose(user_certificate());
 
-//   assert (cert.is_valid == true, "Certificate not valid");
-//   // assert (cert.valid_until > now(), "Certificate expired");
-//   assert (cert.owner == ownPublicKey(), "Not your certificate");
+  assert (cert.is_valid == true, "Certificate not valid");
+  // assert (cert.valid_until > now(), "Certificate expired");
+  assert (cert.owner == ownPublicKey(), "Not your certificate");
 
-//   const hash = cert_hash(cert);
-//   registered_hashes.insert(hash, STATUS.Pending);
-// }
+  const hash = cert_hash(cert);
+  registered_hashes.insert(hash, STATUS.Pending);
+}
 
 // Anyone can check if a user's cert is verified
-// export circuit check_verification(): Boolean {
-//   const cert = disclose(user_certificate());
-//   const hash = cert_hash(cert);
-//   return registered_hashes.lookup(hash) == STATUS.Verified;
-// }
+export circuit check_verification(): Boolean {
+  const cert = disclose(user_certificate());
+  const hash = cert_hash(cert);
+  return registered_hashes.lookup(hash) == STATUS.Verified;
+}
 
-// // Allow gated feature to verified users
-// export circuit access_private_feature(): [] {
-//   const cert = disclose(user_certificate());
-//   const hash = cert_hash(cert);
-//   assert (registered_hashes.lookup(hash) == STATUS.Verified, "Access denied");
-//   verified_users.insert(cert.owner, true);
-// }
+// Allow gated feature to verified users
+export circuit access_private_feature(): [] {
+  const cert = disclose(user_certificate());
+  const hash = cert_hash(cert);
+  assert (registered_hashes.lookup(hash) == STATUS.Verified, "Access denied");
+  verified_users.insert(cert.owner, true);
+}
 
 // Hashing function
 export circuit cert_hash(cert: Certificate): Bytes<32> {
