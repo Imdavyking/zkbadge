@@ -1,12 +1,12 @@
 import { ellipsify } from "../utils/ellipsify";
-import { useAccountModal, useConnectModal } from "@tomo-inc/tomo-evm-kit";
-import { useAccount } from "wagmi";
 
 export default function ConnectWalletButton() {
-  const { openConnectModal } = useConnectModal();
-  const { openAccountModal } = useAccountModal();
-  const { address, isConnected } = useAccount();
-
+  const { address, isConnected, openAccountModal, openConnectModal } = {
+    address: "0x1234567890abcdef1234567890abcdef12345678", // Replace with actual address from context
+    isConnected: true, // Replace with actual connection state from context
+    openAccountModal: () => console.log("Open account modal"), // Replace with actual function from context
+    openConnectModal: () => console.log("Open connect modal"), // Replace with actual function from context
+  };
   return (
     <div className="flex flex-col items-center space-y-2">
       <button

@@ -5,12 +5,11 @@ import ConnectWalletButton from "./ConnectWalletButton";
 
 const NavHeader = () => {
   const [menuOpen, setMenuOpen] = useState(false);
-
   const links = [
-    { to: "/get-started", label: "Start" },
-    { to: "/upload-now", label: "Upload" },
-    { to: "/discover-dataset", label: "Discover" },
-    { to: "/collect-rewards", label: "Rewards" },
+    { to: "/verify", label: "Verify Badge" },
+    { to: "/status", label: "Check Status" },
+    { to: "/admin", label: "Admin Portal" },
+    { to: "/feature", label: "Private Access" },
   ];
 
   const renderLinks = (isMobile = false) =>
@@ -29,7 +28,7 @@ const NavHeader = () => {
     <header className="p-6 border-b shadow-sm bg-white flex justify-between items-center mb-6 relative">
       <Link to="/">
         <h1 className="text-2xl md:text-3xl font-bold text-blue-600">
-          OpenRoots
+          zkBadge
         </h1>
       </Link>
 
