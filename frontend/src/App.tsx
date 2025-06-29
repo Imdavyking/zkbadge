@@ -4,18 +4,18 @@ import Router from "./router";
 import { BrowserRouter } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import NavHeader from "./components/NavHeader";
-import AppProvider from "./context/AppContext";
+import { MidnightMeshProvider } from "./context/midnight-wallet-context";
 
 function App() {
   return (
     <>
       <ToastContainer />
-      <AppProvider>
+      <MidnightMeshProvider>
         <BrowserRouter>
           <NavHeader />
           <Router />
         </BrowserRouter>
-      </AppProvider>
+      </MidnightMeshProvider>
     </>
   );
 }
