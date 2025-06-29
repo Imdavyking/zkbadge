@@ -31,7 +31,7 @@ constructor() {
 
 // Admin verifies valid certificate hashes off-chain
 export circuit verify_certificates(hashes: Vector<10, Maybe<Bytes<32>>>): [] {
-  assert (own_public_key() == admin) "Not admin";
+  assert own_public_key() == admin "Not admin";
   for (const maybe_hash of hashes) {
     if (maybe_hash.is_some) {
       registered_hashes.insert(maybe_hash.value, STATUS.Verified);
