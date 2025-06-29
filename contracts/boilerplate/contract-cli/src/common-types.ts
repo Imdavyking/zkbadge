@@ -1,4 +1,4 @@
-import { contracts, type CounterPrivateState } from '@midnight-ntwrk/contract';
+import { contracts, type ZkBadgePrivateState } from '@midnight-ntwrk/contract';
 import type { ImpureCircuitId, MidnightProviders } from '@midnight-ntwrk/midnight-js-types';
 import type { DeployedContract, FoundContract } from '@midnight-ntwrk/midnight-js-contracts';
 
@@ -13,12 +13,12 @@ const getContractModule = () => {
 
 const contractModule = getContractModule();
 
-export type { CounterPrivateState };
+export type { ZkBadgePrivateState };
 export type CounterCircuits = ImpureCircuitId<typeof contractModule.Contract>;
 
-export const CounterPrivateStateId = 'counterPrivateState';
+export const ZkBadgePrivateStateId = 'ZkBadgePrivateState';
 
-export type CounterProviders = MidnightProviders<CounterCircuits, typeof CounterPrivateStateId, CounterPrivateState>;
+export type CounterProviders = MidnightProviders<CounterCircuits, typeof ZkBadgePrivateStateId, ZkBadgePrivateState>;
 
 export type CounterContract = typeof contractModule.Contract;
 

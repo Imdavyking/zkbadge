@@ -28,8 +28,8 @@ import * as fs from 'node:fs';
 import { ContractAnalyzer } from './contract-analyzer.js';
 import {
   type CounterContract,
-  type CounterPrivateState,
-  type CounterPrivateStateId,
+  type ZkBadgePrivateState,
+  type ZkBadgePrivateStateId,
   type CounterProviders,
   type DeployedCounterContract,
 } from './common-types';
@@ -72,13 +72,10 @@ export const getCounterLedgerState = async (
   logger.info('Checking contract ledger state...');
   const state = await providers.publicDataProvider
     .queryContractState(contractAddress)
-    .then((contractState) => (contractState != null ? contractModule.ledger(contractState.data).round : null))
+    .then((contractState) => (contractState != null ? contractModule.ledger(contractState.data).round : null));
   logger.info(`Ledger state: ${state}`);
   return state;
 };
-
-
-
 
 export const counterContractInstance: CounterContract = new contractModule.Contract(witnesses);
 
@@ -89,7 +86,7 @@ export const joinContract = async (
   const counterContract = await findDeployedContract(providers, {
     contractAddress,
     contract: counterContractInstance,
-    privateStateId: 'counterPrivateState',
+    privateStateId: 'ZkBadgePrivateState',
     initialPrivateState: { privateCounter: 0 },
   });
   logger.info(`Joined contract at address: ${counterContract.deployTxData.public.contractAddress}`);
@@ -98,23 +95,21 @@ export const joinContract = async (
 
 export const deploy = async (
   providers: CounterProviders,
-  privateState: CounterPrivateState,
+  privateState: ZkBadgePrivateState,
 ): Promise<DeployedCounterContract> => {
   // Get dynamic contract name
   const analyzer = new ContractAnalyzer();
   const analysis = await analyzer.analyzeContract();
-  
+
   logger.info(`Deploying ${analysis.contractName.toLowerCase()}...`);
   const counterContract = await deployContract(providers, {
     contract: counterContractInstance,
-    privateStateId: 'counterPrivateState',
+    privateStateId: 'ZkBadgePrivateState',
     initialPrivateState: privateState,
   });
   logger.info(`Deployed contract at address: ${counterContract.deployTxData.public.contractAddress}`);
   return counterContract;
 };
-
-
 
 export const displayCounterValue = async (
   providers: CounterProviders,
@@ -129,8 +124,6 @@ export const displayCounterValue = async (
   }
   return { contractAddress, counterValue };
 };
-
-
 
 export const createWalletAndMidnightProvider = async (wallet: Wallet): Promise<WalletProvider & MidnightProvider> => {
   const state = await Rx.firstValueFrom(wallet.state());
@@ -334,18 +327,18 @@ export const buildFreshWallet = async (config: Config): Promise<Wallet & Resourc
 export const configureProviders = async (wallet: Wallet & Resource, config: Config) => {
   const walletAndMidnightProvider = await createWalletAndMidnightProvider(wallet);
   return {
-    privateStateProvider: levelPrivateStateProvider<typeof CounterPrivateStateId>({
+    privateStateProvider: levelPrivateStateProvider<typeof ZkBadgePrivateStateId>({
       privateStateStoreName: contractConfig.privateStateStoreName,
     }),
     publicDataProvider: indexerPublicDataProvider(config.indexer, config.indexerWS),
-    zkConfigProvider: new NodeZkConfigProvider<'verify_certificates' | 'register' | 'access_private_feature'>(contractConfig.zkConfigPath),
+    zkConfigProvider: new NodeZkConfigProvider<'verify_certificates' | 'register' | 'access_private_feature'>(
+      contractConfig.zkConfigPath,
+    ),
     proofProvider: httpClientProofProvider(config.proofServer),
     walletProvider: walletAndMidnightProvider,
     midnightProvider: walletAndMidnightProvider,
   };
 };
-
-
 
 export function setLogger(_logger: Logger) {
   logger = _logger;
@@ -407,29 +400,29 @@ export const saveState = async (wallet: Wallet, filename: string) => {
   }
 };
 
-export const getItemsSet = async (
-  providers: CounterProviders,
-  contractAddress: ContractAddress,
-): Promise<string[]> => {
+export const getItemsSet = async (providers: CounterProviders, contractAddress: ContractAddress): Promise<string[]> => {
   assertIsContractAddress(contractAddress);
   logger.info('Checking items set...');
-  
+
   try {
     const contractState = await providers.publicDataProvider.queryContractState(contractAddress);
     if (contractState?.data) {
       const ledgerData = contractModule.ledger(contractState.data);
-      
+
       if (ledgerData.items) {
         // Convert Set to Array and then to string representations
         const itemsArray = Array.from(ledgerData.items);
         logger.info(`Found ${itemsArray.length} items in set`);
-        
-        return itemsArray.map(item => {
+
+        return itemsArray.map((item) => {
           if (item instanceof Uint8Array) {
             // Convert bytes to hex string
-            return '0x' + Array.from(item)
-              .map(b => b.toString(16).padStart(2, '0'))
-              .join('');
+            return (
+              '0x' +
+              Array.from(item)
+                .map((b) => b.toString(16).padStart(2, '0'))
+                .join('')
+            );
           }
           return String(item);
         });

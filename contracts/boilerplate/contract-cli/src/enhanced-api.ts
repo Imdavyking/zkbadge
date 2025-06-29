@@ -1,5 +1,5 @@
 // Enhanced API wrapper for Zkbadge Contract
-// Generated on: 2025-06-29T16:29:21.088Z
+// Generated on: 2025-06-29T16:34:09.306Z
 // Auto-generated from zkbadge.compact
 
 import { type Logger } from 'pino';
@@ -122,7 +122,7 @@ export class EnhancedContractAPI {
 export const CONTRACT_METADATA = {
   name: 'Zkbadge Contract',
   fileName: 'zkbadge.compact',
-  generatedAt: '2025-06-29T16:29:21.088Z',
+  generatedAt: '2025-06-29T16:34:09.306Z',
   functions: [
   {
     "name": "verify_certificates",
