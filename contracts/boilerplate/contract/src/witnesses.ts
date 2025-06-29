@@ -1,6 +1,13 @@
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
+import type {
+  Certificate,
+  Contract as ContractType,
+  Witnesses,
+  ZswapCoinPublicKey
+} from "./managed/zkbadge/contract/index.cjs";
+
 import { WitnessContext } from "@midnight-ntwrk/compact-runtime";
 
 // Get __dirname in ESM context
@@ -17,20 +24,20 @@ const [folder] = fs
 const { Ledger } = await import(`./managed/${folder}/contract/index.cjs`);
 
 export type ZkBadgePrivateState = {
-  readonly secretKey: Uint8Array;
+  readonly certificate: Certificate;
 };
 
-export const createZkBadgePrivateState = (secretKey: Uint8Array) => ({
-  secretKey
+export const createZkBadgePrivateState = (certificate: Certificate) => ({
+  certificate
 });
 
 export const witnesses = {
-  secretKey: ({
+  user_certificate: ({
     privateState
   }: WitnessContext<typeof Ledger, ZkBadgePrivateState>): [
     ZkBadgePrivateState,
-    Uint8Array
+    Certificate
   ] => {
-    return [privateState, privateState.secretKey];
+    return [privateState, privateState.certificate];
   }
 };
